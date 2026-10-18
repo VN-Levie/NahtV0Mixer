@@ -3,6 +3,7 @@
 ## Product and ownership
 
 - Native macOS menu-bar mixer, Swift/SwiftUI/AppKit with public Core Audio APIs; macOS 14.4 or later. Keep one process and one menu-bar item.
+- Prefer the Control Center style using native macOS popover materials and standard controls. Keep panels compact and sized to their content; avoid bespoke backgrounds, shadows and oversized fixed layouts. Do not use private Control Center APIs.
 - This repository is private. Do not make it public or publish a release without an explicit user request. A push is not authorization to publish a release or change repository visibility.
 - Learn from external projects; implement independently. Do not transplant source, binaries, icons or other assets. Record meaningful conceptual references in `CREDITS.md` with links and what was learned. Reassess licensing before adding any dependency.
 - Preserve unrelated work. Do not create branches, worktrees, PRs or extra preview copies just to organize ordinary changes. Commit only scoped paths when authorized; use `type(scope): summary` subjects.

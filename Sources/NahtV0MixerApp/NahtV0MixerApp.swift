@@ -78,10 +78,11 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
         let popover = NSPopover()
         popover.behavior = .transient
         popover.animates = false
-        popover.contentSize = NSSize(width: 400, height: 610)
-        popover.contentViewController = NSHostingController(rootView: MixerView(
+        let host = NSHostingController(rootView: MixerView(
             store: .shared, preferences: .shared, loginItems: loginItems,
             quit: { NSApp.terminate(nil) }))
+        host.sizingOptions = [.preferredContentSize]
+        popover.contentViewController = host
         panel = popover
         let item = NSStatusBar.system.statusItem(withLength: 32)
         if let button = item.button {

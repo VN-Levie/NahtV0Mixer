@@ -4,7 +4,7 @@ NahtV0Mixer được triển khai riêng bằng Swift/SwiftUI và AppKit, với 
 
 | Nguồn tham khảo | Nội dung học hỏi |
 | --- | --- |
-| Apple — [Core Audio Taps](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps) và [MenuBarExtra](https://developer.apple.com/documentation/swiftui/menubarextra) | API công khai để xử lý âm thanh của tiến trình, quyền truy cập âm thanh hệ thống và giao diện menu bar bằng SwiftUI. |
+| Apple — [Core Audio Taps](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps), [MenuBarExtra](https://developer.apple.com/documentation/swiftui/menubarextra) và [NSPopover](https://developer.apple.com/documentation/appkit/nspopover) | API công khai để xử lý âm thanh của tiến trình, quyền truy cập âm thanh hệ thống, giao diện menu bar và popover co theo nội dung với vật liệu macOS. |
 | [MacMixer](https://github.com/burghr/MacMixer) | Cấu trúc process tap, aggregate device riêng và thứ tự dừng, giải phóng đường âm thanh. |
 | [AudioCap](https://github.com/insidegui/AudioCap) | Vòng đời tap, định dạng âm thanh và tình huống thiếu quyền. NahtV0Mixer không sử dụng private TCC API. |
 | [FineTune](https://github.com/ronitsingh10/FineTune) | Gom tiến trình phụ về một ứng dụng, tách trạng thái mong muốn khỏi trạng thái thiết bị và cách trình bày mixer. |

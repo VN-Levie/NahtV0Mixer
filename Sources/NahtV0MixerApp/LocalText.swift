@@ -9,6 +9,8 @@ enum LocalText {
 
     private static let vietnamese: [String: String] = [
         "Mixer": "Bộ trộn âm lượng",
+        "Sound": "Âm thanh",
+        "Requires system audio access.": "Cần quyền truy cập âm thanh hệ thống.",
         "Settings": "Cài đặt",
         "Back": "Quay lại",
         "Refresh": "Làm mới",
