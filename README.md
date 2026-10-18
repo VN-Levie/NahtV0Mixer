@@ -1,8 +1,8 @@
 # NahtV0Mixer
 
-A native macOS menu-bar volume mixer built with Swift and SwiftUI. Adjust each application's volume from a compact panel, with a workflow inspired by the Windows Volume Mixer.
+A native macOS menu-bar volume mixer. Adjust each application's volume directly from the macOS menu, with a workflow inspired by the Windows Volume Mixer.
 
-**Early development — version 0.1.0.** No public release is available yet.
+**Early development — version 0.1.1.** [Download the latest release](https://github.com/VN-Levie/NahtV0Mixer/releases/latest).
 
 ## Requirements
 
@@ -14,11 +14,11 @@ A native macOS menu-bar volume mixer built with Swift and SwiftUI. Adjust each a
 
 1. Open NahtV0Mixer and click its menu-bar icon.
 2. Play audio in an application to make it appear in the list.
-3. Enable **Per-app mixer**, then adjust an application's slider or mute button.
+3. Enable **Per-app mixer**, then adjust an application's slider. Mute and reset buttons sit beside each application's name.
 4. Allow system audio recording access if macOS asks. Audio is processed locally; the app does not save recordings or upload audio.
 
 - Per-app levels are remembered. Each launch starts with the mixer disabled; enable it to apply your saved levels.
-- Use the output picker and system-volume controls to manage the current output device. Hardware controls are disabled when the device does not support them.
+- Use the **Output** submenu and system-volume controls to manage the current output device. Hardware controls are disabled when the device does not support them.
 - Reset an application's volume to return it to its normal level. Disable the mixer to stop per-app processing.
 - Settings include English/Vietnamese, system/light/dark appearance, and launch at login.
 - Reopening the app uses the existing instance and keeps a single menu-bar icon.

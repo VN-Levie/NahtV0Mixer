@@ -34,6 +34,15 @@ protocol MixerAudioRoute: AnyObject {
 }
 extension ProcessAudioRoute: MixerAudioRoute {}
 
+struct MixerVolumeIO {
+    let read: (UInt32) -> Double?
+    let write: (Double, UInt32) throws -> Void
+
+    static let live = MixerVolumeIO(
+        read: { AudioCatalog.volume(of: $0) },
+        write: { try AudioCatalog.setVolume($0, of: $1) })
+}
+
 /// All graph mutations run in order; the render callback reads only the C control state.
 final class RouteController {
     private let queue = DispatchQueue(label: "com.levie.NahtV0Mixer.routes", qos: .userInitiated)
@@ -125,6 +134,7 @@ final class RouteController {
     @Published private(set) var lastError: String?
     private let preferences: MixerPreferences
     private let defaults: UserDefaults
+    private let volumeIO: MixerVolumeIO
     private let controller = RouteController()
     private var sources: [AudioApplicationSource] = []
     private var sessionLevels: [String: ApplicationLevel] = [:]
@@ -135,9 +145,11 @@ final class RouteController {
     private var suspended = false
     private var stopped = false
 
-    init(defaults: UserDefaults = .standard) {
+    init(defaults: UserDefaults = .standard, volumeIO: MixerVolumeIO = .live, initialOutputID: UInt32 = 0) {
         self.defaults = defaults
+        self.volumeIO = volumeIO
         preferences = MixerPreferences(defaults: defaults)
+        selectedOutputID = initialOutputID
         // Levels persist, but every launch starts in bypass until the user enables mixing.
     }
     func start() {
@@ -205,8 +217,18 @@ final class RouteController {
         routeErrors.removeValue(forKey: id); publishApplications(); reconcile(retry: true)
     }
     func setSystemVolume(_ value: Double) {
-        do { try AudioCatalog.setVolume(value, of: selectedOutputID); lastError = nil; refresh() }
-        catch { lastError = error.localizedDescription; refresh() }
+        guard value.isFinite else {
+            lastError = "Device volume is unavailable."
+            return
+        }
+        let clampedValue = min(max(value, 0), 1)
+        do {
+            try volumeIO.write(clampedValue, selectedOutputID)
+            systemVolume = volumeIO.read(selectedOutputID)
+            lastError = nil
+        } catch {
+            lastError = error.localizedDescription
+        }
     }
     func setSystemMuted(_ value: Bool) {
         do { try AudioCatalog.setMuted(value, of: selectedOutputID); lastError = nil; refresh() }

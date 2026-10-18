@@ -1,6 +1,5 @@
 import AppKit
 import Combine
-import SwiftUI
 
 enum MixerLanguage: String, CaseIterable, Identifiable {
     case system, english, vietnamese
@@ -18,13 +17,6 @@ enum MixerLanguage: String, CaseIterable, Identifiable {
 enum MixerTheme: String, CaseIterable, Identifiable {
     case system, light, dark
     var id: String { rawValue }
-    var colorScheme: ColorScheme? {
-        switch self {
-        case .system: return nil
-        case .light: return .light
-        case .dark: return .dark
-        }
-    }
     var appearance: NSAppearance? {
         switch self {
         case .system: return nil

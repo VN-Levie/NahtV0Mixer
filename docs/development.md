@@ -1,6 +1,6 @@
 # Phát triển NahtV0Mixer
 
-Ứng dụng dùng SwiftPM, SwiftUI/AppKit và Core Audio Process Taps công khai. Không cần driver âm thanh riêng hoặc dependency bên ngoài. Mục tiêu tối thiểu là macOS 14.4.
+Ứng dụng dùng SwiftPM, AppKit và Core Audio Process Taps công khai. Menu gắn trực tiếp vào `NSStatusItem.menu`; các hàng âm lượng dùng `NSSlider` gốc, không dùng popover hay cửa sổ SwiftUI. Không cần driver âm thanh riêng hoặc dependency bên ngoài. Mục tiêu tối thiểu là macOS 14.4.
 
 ## Build và ký mã
 

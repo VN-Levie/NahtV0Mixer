@@ -1,10 +1,10 @@
 # Credit
 
-NahtV0Mixer được triển khai riêng bằng Swift/SwiftUI và AppKit, với phần xử lý âm thanh C nhỏ chạy qua Core Audio. Các nguồn dưới đây giúp định hình kiến trúc, cách kiểm thử và trải nghiệm sử dụng; không có mã nguồn, thư viện nhị phân hoặc hình ảnh nào được chuyển từ các dự án bên ngoài này vào ứng dụng.
+NahtV0Mixer được triển khai riêng bằng Swift và AppKit, với phần xử lý âm thanh C nhỏ chạy qua Core Audio. Các nguồn dưới đây giúp định hình kiến trúc, cách kiểm thử và trải nghiệm sử dụng; không có mã nguồn, thư viện nhị phân hoặc hình ảnh nào được chuyển từ các dự án bên ngoài này vào ứng dụng.
 
 | Nguồn tham khảo | Nội dung học hỏi |
 | --- | --- |
-| Apple — [Core Audio Taps](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps), [MenuBarExtra](https://developer.apple.com/documentation/swiftui/menubarextra) và [NSPopover](https://developer.apple.com/documentation/appkit/nspopover) | API công khai để xử lý âm thanh của tiến trình, quyền truy cập âm thanh hệ thống, giao diện menu bar và popover co theo nội dung với vật liệu macOS. |
+| Apple — [Core Audio Taps](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps), [NSStatusItem.menu](https://developer.apple.com/documentation/appkit/nsstatusitem/menu), [NSMenuItem.view](https://developer.apple.com/documentation/appkit/nsmenuitem/view) và [menuNeedsUpdate](https://developer.apple.com/documentation/appkit/nsmenudelegate/menuneedsupdate(_:)) | API công khai để xử lý âm thanh của tiến trình, quyền truy cập âm thanh hệ thống, menu gốc của macOS chứa control AppKit và cập nhật menu trước khi mở. |
 | [MacMixer](https://github.com/burghr/MacMixer) | Cấu trúc process tap, aggregate device riêng và thứ tự dừng, giải phóng đường âm thanh. |
 | [AudioCap](https://github.com/insidegui/AudioCap) | Vòng đời tap, định dạng âm thanh và tình huống thiếu quyền. NahtV0Mixer không sử dụng private TCC API. |
 | [FineTune](https://github.com/ronitsingh10/FineTune) | Gom tiến trình phụ về một ứng dụng, tách trạng thái mong muốn khỏi trạng thái thiết bị và cách trình bày mixer. |

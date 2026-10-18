@@ -1,7 +1,6 @@
 import AppKit
 import Carbon
 import Combine
-import SwiftUI
 
 enum MixerLaunch {
     static func isBackground(event: NSAppleEventDescriptor?, arguments: [String]) -> Bool {
@@ -28,8 +27,8 @@ enum NahtV0MixerApp {
 final class MixerAppDelegate: NSObject, NSApplicationDelegate {
     private let instance = SingleInstance()
     private var statusItem: NSStatusItem?
-    private var panel: NSPopover?
-    private var loginItems: LoginItems?
+    private var mixerMenu: MixerMenuController?
+    private var presentationQueued = false
     private var observations: Set<AnyCancellable> = []
     private var launchFailure: Error?
     private var backgroundLaunch = CommandLine.arguments.contains("--background")
@@ -73,25 +72,16 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
         ready = true
         NSApp.appearance = AppPreferences.shared.theme.appearance
         AppPreferences.shared.$theme.sink { theme in NSApp.appearance = theme.appearance }.store(in: &observations)
-        let loginItems = LoginItems()
-        self.loginItems = loginItems
-        let popover = NSPopover()
-        popover.behavior = .transient
-        popover.animates = false
-        let host = NSHostingController(rootView: MixerView(
-            store: .shared, preferences: .shared, loginItems: loginItems,
-            quit: { NSApp.terminate(nil) }))
-        host.sizingOptions = [.preferredContentSize]
-        popover.contentViewController = host
-        panel = popover
+        let mixerMenu = MixerMenuController(store: MixerStore.shared, preferences: .shared,
+                                            loginItems: LoginItems(), quit: { NSApp.terminate(nil) })
+        self.mixerMenu = mixerMenu
         let item = NSStatusBar.system.statusItem(withLength: 32)
+        item.menu = mixerMenu.menu
         if let button = item.button {
             let image = Bundle.main.url(forResource: "MenuBarIcon", withExtension: "png").flatMap(NSImage.init(contentsOf:))
             if let image { image.size = NSSize(width: image.size.width / 2, height: image.size.height / 2) }
             button.image = image ?? NSImage(systemSymbolName: "slider.horizontal.3", accessibilityDescription: "NahtV0Mixer")
             button.image?.isTemplate = true
-            button.target = self
-            button.action = #selector(toggleMixer(_:))
             button.toolTip = "NahtV0Mixer"
             button.setAccessibilityIdentifier("NahtV0MixerStatusItem")
             button.setAccessibilityLabel("NahtV0Mixer")
@@ -114,17 +104,20 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
         NSApp.mainMenu = root
     }
 
-    @objc private func toggleMixer(_ sender: Any?) {
-        if panel?.isShown == true { panel?.performClose(sender) }
-        else { showMixer() }
-    }
-
     private func showMixer() {
-        guard ready, ownsMixer, let panel, let button = statusItem?.button else { return }
-        loginItems?.refresh()
-        NSApp.activate(ignoringOtherApps: true)
-        if !panel.isShown { panel.show(relativeTo: button.bounds, of: button, preferredEdge: .minY) }
-        panel.contentViewController?.view.window?.makeKey()
+        guard ready, ownsMixer, !presentationQueued, mixerMenu?.isTracking == false else { return }
+        presentationQueued = true
+        // Native menu tracking is synchronous. Let reopen/instance requests return
+        // and acknowledge first, rather than blocking them until the menu closes.
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.presentationQueued = false
+            guard self.ready, self.ownsMixer, self.mixerMenu?.isTracking == false else { return }
+            guard let button = self.statusItem?.button, let menu = self.mixerMenu?.menu else { return }
+            let anchor = NSPoint(x: button.bounds.minX,
+                                 y: button.isFlipped ? button.bounds.maxY : button.bounds.minY)
+            menu.popUp(positioning: nil, at: anchor, in: button)
+        }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -137,8 +130,10 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         if ownsMixer { MixerStore.shared.shutdown() }
+        mixerMenu?.menu.cancelTracking()
         if let statusItem { NSStatusBar.system.removeStatusItem(statusItem) }
         statusItem = nil
+        mixerMenu = nil
         observations.removeAll()
         NSAppleEventManager.shared().removeEventHandler(forEventClass: kCoreEventClass, andEventID: kAEOpenApplication)
         instance.release()
