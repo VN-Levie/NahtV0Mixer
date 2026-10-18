@@ -1,25 +1,40 @@
 # NahtV0Mixer
 
-Mixer âm lượng cho macOS, viết bằng Swift và SwiftUI. Chỉnh âm lượng từng ứng dụng ngay trên menu bar, theo cách quen thuộc của Volume Mixer trên Windows.
+A native macOS menu-bar volume mixer built with Swift and SwiftUI. Adjust each application's volume from a compact panel, with a workflow inspired by the Windows Volume Mixer.
 
-**Đang phát triển — phiên bản 0.1.0.** Chưa có bản phát hành công khai.
+**Early development — version 0.1.0.** No public release is available yet.
 
-## Sử dụng
+## Requirements
 
-Yêu cầu **macOS 14.4 trở lên**. Mở app, nhấn icon trên menu bar để xem ứng dụng đang phát âm thanh và chọn thiết bị đầu ra.
+- **macOS 14.4 or later**.
+- System audio recording permission for per-app volume control.
+- An output device using mono or stereo Float32 audio for per-app processing.
 
-- Bật mixer khi muốn điều chỉnh âm lượng riêng từng ứng dụng.
-- Cấp quyền **ghi âm thanh hệ thống** nếu macOS yêu cầu. App cần quyền này để xử lý âm thanh cục bộ, không lưu bản ghi hoặc gửi âm thanh lên mạng.
-- Kéo thanh âm lượng hoặc bật/tắt tiếng của từng ứng dụng. Tắt mixer để trả âm thanh về đường phát bình thường.
-- Mức âm lượng được nhớ theo ứng dụng; mỗi lần mở app bắt đầu ở trạng thái tắt mixer. Bật lại khi muốn áp dụng các mức đã lưu.
-- Chọn tiếng Việt/English, giao diện sáng/tối và khởi động cùng macOS trong Cài đặt. Mở app nhiều lần vẫn dùng chung một icon menu bar.
-- Thoát app trước khi cập nhật hoặc thay bản cài đặt.
+## Usage
 
-Một số thiết bị đầu ra không hỗ trợ chỉnh âm lượng tổng bằng phần mềm. Bản đầu xử lý mono/stereo Float32 trên đầu ra hệ thống; không định tuyến riêng mỗi ứng dụng sang một thiết bị khác. Bluetooth, HDMI và đổi thiết bị trong lúc phát cần được kiểm thử riêng. Nguồn âm thanh từ một số tiến trình phụ có thể hiện thành hàng riêng.
+1. Open NahtV0Mixer and click its menu-bar icon.
+2. Play audio in an application to make it appear in the list.
+3. Enable **Per-app mixer**, then adjust an application's slider or mute button.
+4. Allow system audio recording access if macOS asks. Audio is processed locally; the app does not save recordings or upload audio.
 
-## Biên dịch
+- Per-app levels are remembered. Each launch starts with the mixer disabled; enable it to apply your saved levels.
+- Use the output picker and system-volume controls to manage the current output device. Hardware controls are disabled when the device does not support them.
+- Reset an application's volume to return it to its normal level. Disable the mixer to stop per-app processing.
+- Settings include English/Vietnamese, system/light/dark appearance, and launch at login.
+- Reopening the app uses the existing instance and keeps a single menu-bar icon.
+- Quit the app before replacing or updating it.
 
-Cần Xcode 26 trở lên với Swift 6 và công cụ biên dịch Icon Composer.
+## Current limitations
+
+The initial version processes supported applications on the system output. It does not route each application to a separate device. Some helper processes may appear as separate applications.
+
+The controlled audio fixture has passed on built-in MacBook Pro speakers on Apple Silicon. Bluetooth, HDMI, conferencing/duplex devices, Intel hardware, and device changes during playback still need compatibility testing. Device-failure recovery is under review; this is an experimental build.
+
+Local builds are ad-hoc signed by default and are not Apple-notarized. This does not provide a Developer ID distribution signature.
+
+## Build
+
+Requires **Xcode 26 or later**, Swift 6, and the Icon Composer build tools. There are no external package dependencies.
 
 ```sh
 swift test
@@ -27,10 +42,14 @@ swift test
 open build/NahtV0Mixer.app
 ```
 
-Dùng `./scripts/build-app.sh --universal` để tạo app cho cả Apple Silicon và Intel. `./scripts/package-release.sh` tạo ZIP kèm checksum; `./scripts/install-local.sh` cài vào Applications sau khi đã thoát app. Chi tiết kiểm thử và ký mã nằm trong [hướng dẫn phát triển](docs/development.md).
+Use `./scripts/build-app.sh --universal` to build for Apple Silicon and Intel. `./scripts/package-release.sh` creates a ZIP and SHA-256 checksum. After quitting the app, `./scripts/install-local.sh` installs the built copy into Applications.
 
-## Credit và giấy phép
+See the [development guide](docs/development.md) for signing, packaging, and the scope of audio verification.
 
-Cảm ơn các dự án và tài liệu trong [CREDITS.md](CREDITS.md). NahtV0Mixer triển khai riêng, tham khảo nguyên lý và trải nghiệm sử dụng, không chép mã nguồn hoặc hình ảnh từ các dự án đó.
+## Credits and license
+
+Thanks to the projects and documentation listed in [CREDITS.md](CREDITS.md). NahtV0Mixer is independently implemented: those references informed concepts and user experience; their source code and artwork were not copied into the app.
+
+The N-speaker icon was created for NahtSoft with ImageGen and selected by the project owner. Its sources and prompts are documented in [Resources/Brand](Resources/Brand/README.md).
 
 [MIT License](LICENSE).
