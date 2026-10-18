@@ -19,7 +19,7 @@ Một số thiết bị đầu ra không hỗ trợ chỉnh âm lượng tổng 
 
 ## Biên dịch
 
-Cần Xcode Command Line Tools với Swift 6 trở lên.
+Cần Xcode 26 trở lên với Swift 6 và công cụ biên dịch Icon Composer.
 
 ```sh
 swift test

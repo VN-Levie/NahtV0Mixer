@@ -55,6 +55,19 @@ cp Resources/Info.plist "$staged_bundle/Contents/Info.plist"
 cp LICENSE "$staged_bundle/Contents/Resources/LICENSE.txt"
 cp CREDITS.md "$staged_bundle/Contents/Resources/CREDITS.md"
 swift scripts/make-icon.swift "$staged_bundle/Contents/Resources/AppIcon.icns"
+if [ -d Resources/NahtV0Mixer.icon ]; then
+    icon_output="$staging_dir/icon-assets"
+    mkdir -p "$icon_output"
+    xcrun actool Resources/NahtV0Mixer.icon --compile "$icon_output" \
+        --app-icon NahtV0Mixer --target-device mac --platform macosx \
+        --minimum-deployment-target 14.4 --bundle-identifier com.levie.NahtV0Mixer \
+        --output-partial-info-plist "$icon_output/icon.plist" \
+        --output-format human-readable-text --warnings --errors --notices
+    cp "$icon_output/Assets.car" "$staged_bundle/Contents/Resources/Assets.car"
+    cp "$icon_output/NahtV0Mixer.icns" "$staged_bundle/Contents/Resources/NahtV0Mixer.icns"
+    /usr/libexec/PlistBuddy -c 'Set :CFBundleIconFile NahtV0Mixer' "$staged_bundle/Contents/Info.plist"
+    /usr/libexec/PlistBuddy -c 'Add :CFBundleIconName string NahtV0Mixer' "$staged_bundle/Contents/Info.plist"
+fi
 
 # SwiftPM resource bundles, when present, belong beside the executable's resources.
 for resource_bundle in "$binary_dir"/NahtV0Mixer_*.bundle; do

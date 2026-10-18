@@ -83,9 +83,11 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
             store: .shared, preferences: .shared, loginItems: loginItems,
             quit: { NSApp.terminate(nil) }))
         panel = popover
-        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        let item = NSStatusBar.system.statusItem(withLength: 32)
         if let button = item.button {
-            button.image = NSImage(systemSymbolName: "slider.horizontal.3", accessibilityDescription: "NahtV0Mixer")
+            let image = Bundle.main.url(forResource: "MenuBarIcon", withExtension: "png").flatMap(NSImage.init(contentsOf:))
+            if let image { image.size = NSSize(width: image.size.width / 2, height: image.size.height / 2) }
+            button.image = image ?? NSImage(systemSymbolName: "slider.horizontal.3", accessibilityDescription: "NahtV0Mixer")
             button.image?.isTemplate = true
             button.target = self
             button.action = #selector(toggleMixer(_:))

@@ -35,7 +35,7 @@ struct MixerView: View {
 
     private var header: some View {
         HStack(spacing: 10) {
-            Image(systemName: "slider.horizontal.3").font(.title3).foregroundStyle(.tint)
+            brandMark.foregroundStyle(.tint)
             VStack(alignment: .leading, spacing: 2) {
                 Text("NahtV0Mixer").font(.headline)
                 Text(preferences.text(showingSettings ? "Settings" : "Mixer"))
@@ -57,6 +57,14 @@ struct MixerView: View {
             .accessibilityLabel(preferences.text(showingSettings ? "Back" : "Settings"))
         }
         .padding(16)
+    }
+
+    @ViewBuilder private var brandMark: some View {
+        if let url = Bundle.main.url(forResource: "MenuBarIcon", withExtension: "png"), let image = NSImage(contentsOf: url) {
+            Image(nsImage: image).resizable().renderingMode(.template).scaledToFit().frame(width: 28, height: 20)
+        } else {
+            Image(systemName: "slider.horizontal.3").font(.title3)
+        }
     }
 
     private var mixer: some View {

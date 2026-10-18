@@ -15,7 +15,7 @@ Build mặc định nằm ở `build/NahtV0Mixer.app`. Chỉ chạy một lệnh
 - `NAHTV0MIXER_APP_OUTPUT`: đường dẫn `.app` đầu ra khác.
 - `NAHTV0MIXER_SIGN_IDENTITY`: identity của `codesign`; mặc định `-` (ad-hoc).
 
-Build tạo icon từ `scripts/make-icon.swift`, loại debug map chứa đường dẫn cục bộ rồi ký app. Script từ chối thay thế bundle đang chạy và không khởi chạy ứng dụng. Ad-hoc signing không tương đương Developer ID hoặc notarization; macOS có thể yêu cầu cấp quyền lại sau khi binary thay đổi. Không tự xoá quarantine, sửa TCC hoặc dùng private API để né hộp thoại quyền.
+Build đóng gói artwork đã duyệt qua `scripts/make-icon.swift` và Icon Composer, loại debug map chứa đường dẫn cục bộ rồi ký app. Script từ chối thay thế bundle đang chạy và không khởi chạy ứng dụng. Ad-hoc signing không tương đương Developer ID hoặc notarization; macOS có thể yêu cầu cấp quyền lại sau khi binary thay đổi. Không tự xoá quarantine, sửa TCC hoặc dùng private API để né hộp thoại quyền.
 
 ## Kiểm thử
 

@@ -14,6 +14,6 @@ NahtV0Mixer được triển khai riêng bằng Swift/SwiftUI và AppKit, với 
 
 Mỗi nguồn giữ giấy phép và quyền tác giả riêng. FineTune và Background Music được tham khảo về nguyên lý; NahtV0Mixer không tích hợp mã GPL từ các dự án này. [Giấy phép EarTrumpet](https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE) có điều khoản bổ sung, không được coi là MIT chuẩn.
 
-Quy trình build, ký ứng dụng, kiểm tra gói và cài đặt được tiếp nối từ hai ứng dụng cùng tác giả: [NahtKey](https://github.com/VN-Levie/NahtKey) và [NahtPaint](https://github.com/VN-Levie/NahtPaint). Icon NahtV0Mixer được vẽ riêng bằng script Swift trong dự án.
+Quy trình build, ký ứng dụng, kiểm tra gói và cài đặt được tiếp nối từ hai ứng dụng cùng tác giả: [NahtKey](https://github.com/VN-Levie/NahtKey) và [NahtPaint](https://github.com/VN-Levie/NahtPaint). Bộ icon chữ N–loa với hai vòng sóng được tạo bằng ImageGen theo hướng nhận diện cùng nhóm NahtSoft, do chủ dự án lựa chọn và yêu cầu chỉnh sửa. Nguồn và ý tưởng prompt nằm trong [Resources/Brand](Resources/Brand/README.md); script Swift chỉ đóng gói kích thước icon.
 
 Khi một nguồn mới ảnh hưởng trực tiếp đến thiết kế hoặc xử lý lỗi, cập nhật bảng này cùng thay đổi liên quan. Việc ghi credit không thay thế quyền sử dụng hoặc điều kiện giấy phép.

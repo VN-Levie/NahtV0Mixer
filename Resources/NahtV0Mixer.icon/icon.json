@@ -1,0 +1,15 @@
+{
+  "fill": {
+    "linear-gradient": ["srgb:0.00000,0.88000,0.88000,1.00000", "srgb:0.01000,0.22000,0.98000,1.00000"],
+    "orientation": {"start": {"x": 0, "y": 0}, "stop": {"x": 1, "y": 1}}
+  },
+  "groups": [{
+    "name": "NahtV0Mixer",
+    "layers": [{"name": "Approved N speaker", "image-name": "NahtV0Mixer.png", "glass": false,
+                "position": {"scale": 1, "translation-in-points": [0, 0]}}],
+    "shadow": {"kind": "neutral", "opacity": 0},
+    "translucency": {"enabled": false, "value": 0},
+    "specular": false
+  }],
+  "supported-platforms": {"circles": [], "squares": "shared"}
+}
