@@ -1,0 +1,15 @@
+# Final artwork prompts
+
+Tool: built-in ImageGen. Reference: the owner's selected N-speaker presentation, itself developed with NahtKey and NahtPaint as brand-family references. The owner requested exactly two sound arcs. These are artwork instructions, not application or build instructions.
+
+## Approved composition edit
+
+Edit this exact approved NahtV0Mixer icon presentation with ONE specific change: add one more sound-wave arc shaped like ')' outside the existing arc, so there are EXACTLY TWO separate arcs to the right of the capital N. Apply the same two-wave change to ALL THREE marks: the large white mark on the blue app icon, the black menu-bar mark lower left, and the white menu-bar mark lower right. Preserve the exact rounded N silhouette, cyan-to-cobalt tile, tile material, proportions, backgrounds, and overall layout. The new outer arc should be a little taller than the inner arc and use the same rounded stroke ends and weight, with a clearly visible gap. Keep both arcs comfortably within the tile; if necessary scale the whole N-plus-two-waves symbol down very slightly and center it as a unit, without distorting the N. Absolutely no third arc, no extra text, no other redesign. Precise edit to the supplied design.
+
+## App source (transparent background)
+
+Produce the final standalone macOS app icon from the LARGE BLUE TILE at the top of this approved reference. Preserve its exact rounded capital N silhouette, glossy cyan-to-cobalt tile, soft rounded corners and proportions. User-requested edit: add ONE more ')' sound-wave arc outside the existing arc, making EXACTLY TWO arcs beside the N. Outer arc slightly taller, same rounded caps and visual stroke weight, clear gap. Fit the full N and two arcs comfortably within the blue tile, by reducing the overall mark very slightly and centering if needed. Remove the reference board, bottom menu-bar previews and all white exterior background. Deliver ONLY this single blue rounded-square app icon, centered with about 7% transparent margin all sides. TRUE TRANSPARENT alpha outside the tile, no flat white/gray backdrop, no words or watermark. Do not invent a different N, do not add other components.
+
+## Menu-bar source (transparent background)
+
+Produce the final standalone macOS MENU BAR TEMPLATE ICON based on the BLACK N-speaker silhouette at the lower left of the approved reference. Preserve the exact bold rounded N shape. User edit: add ONE more ')' sound-wave arc outside the existing arc so there are EXACTLY TWO clearly separate nested arcs to the right of the N; outer arc slightly taller, both rounded caps. Simplify to crisp pure solid BLACK silhouette and real transparent background. No tile, no blue, no white rectangle, no gray, no lighting, no texture, no shadows, no board, no text. This is a small macOS menu bar glyph: thick clean strokes and visible gaps, recognizable at 18pt. Center the N-plus-two-waves symbol, occupying 90% of canvas width and roughly 60% height, generous transparency top/bottom; keep aspect ratio, do not stretch.
