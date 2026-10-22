@@ -1,6 +1,7 @@
 import AppKit
 import Carbon
 import Combine
+import MixerWidgetCore
 
 enum MixerLaunch {
     static func isBackground(event: NSAppleEventDescriptor?, arguments: [String]) -> Bool {
@@ -28,6 +29,7 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
     private let instance = SingleInstance()
     private var statusItem: NSStatusItem?
     private var mixerMenu: MixerMenuController?
+    private var widgetBridge: MixerWidgetBridge?
     private var presentationQueued = false
     private var observations: Set<AnyCancellable> = []
     private var launchFailure: Error?
@@ -36,6 +38,7 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
     private var ownsMixer = false
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+        MixerPreferenceMigration.migrateIfNeeded()
         do { ownsMixer = try instance.claim() }
         catch { launchFailure = error }
         NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(openApplication(_:reply:)),
@@ -89,6 +92,11 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
         statusItem = item
         installApplicationMenu()
         MixerStore.shared.start()
+        if let storage = try? WidgetSharedStore.configured() {
+            let bridge = MixerWidgetBridge(source: MixerStore.shared, storage: storage)
+            widgetBridge = bridge
+            bridge.start()
+        }
         instance.onPresent = { [weak self] in self?.showMixer() }
         if !backgroundLaunch { showMixer() }
     }
@@ -128,7 +136,16 @@ final class MixerAppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 
+    func application(_ application: NSApplication, open urls: [URL]) {
+        if urls.contains(where: { $0.scheme == "nahtv0mixer" && $0.host == "show" }) {
+            if ready { showMixer() }
+            else { backgroundLaunch = false }
+        }
+    }
+
     func applicationWillTerminate(_ notification: Notification) {
+        widgetBridge?.stop()
+        widgetBridge = nil
         if ownsMixer { MixerStore.shared.shutdown() }
         mixerMenu?.menu.cancelTracking()
         if let statusItem { NSStatusBar.system.removeStatusItem(statusItem) }

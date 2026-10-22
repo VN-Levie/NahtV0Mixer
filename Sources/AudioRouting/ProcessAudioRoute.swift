@@ -158,7 +158,7 @@ public final class ProcessAudioRoute {
         let tapUID = try Self.string(tapID, selector: kAudioTapPropertyUID)
         let composition: [String: Any] = [
             kAudioAggregateDeviceNameKey: "NahtV0Mixer private route",
-            kAudioAggregateDeviceUIDKey: "com.levie.NahtV0Mixer.route.\(UUID().uuidString)",
+            kAudioAggregateDeviceUIDKey: "vn.levie.NahtV0Mixer.route.\(UUID().uuidString)",
             kAudioAggregateDeviceIsPrivateKey: true,
             kAudioAggregateDeviceIsStackedKey: false,
             kAudioAggregateDeviceMainSubDeviceKey: outputUID,

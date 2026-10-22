@@ -46,7 +46,7 @@ enum LocalText {
         "Launch at login": "Mở khi đăng nhập",
         "Waiting for approval in System Settings.": "Đang chờ cho phép trong Cài đặt hệ thống.",
         "Open Login Items": "Mở mục đăng nhập",
-        "Launch at login is unavailable. Move the app to Applications first.": "Chưa thể mở khi đăng nhập. Hãy chuyển ứng dụng vào Applications.",
+        "Launch at login status is unavailable.": "Chưa đọc được trạng thái mở khi đăng nhập.",
         "Close this panel to keep the mixer running.": "Đóng bảng này để bộ trộn tiếp tục chạy.",
         "Version": "Phiên bản",
         "Could not start NahtV0Mixer": "Không thể mở NahtV0Mixer",

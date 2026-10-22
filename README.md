@@ -1,55 +1,46 @@
 # NahtV0Mixer
 
-A native macOS menu-bar volume mixer. Adjust each application's volume directly from the macOS menu, with a workflow inspired by the Windows Volume Mixer.
+Điều chỉnh âm lượng từng ứng dụng ngay trên menu bar macOS, kèm widget trên desktop.
 
-**Early development — version 0.1.1.** [Download the latest release](https://github.com/VN-Levie/NahtV0Mixer/releases/latest).
+**Bản thử nghiệm 0.2.0.** [Tải bản mới nhất](https://github.com/VN-Levie/NahtV0Mixer/releases/latest).
 
-## Requirements
+## Cài đặt
 
-- **macOS 14.4 or later**.
-- System audio recording permission for per-app volume control.
-- An output device using mono or stereo Float32 audio for per-app processing.
+- macOS **14.4 trở lên**. Gói Universal gồm Apple Silicon và Intel.
+- Thoát NahtV0Mixer đang chạy, giải nén ZIP rồi kéo **NahtV0Mixer.app** vào **Applications**.
+- Mở bản trong Applications. Khi cập nhật từ bản cũ, kiểm tra lại quyền âm thanh và **Khởi động cùng macOS** nếu cần.
+- Bản có widget được ký **Apple Development**, chưa có Developer ID/notarization. Nếu macOS chặn, dùng **System Settings → Privacy & Security → Open Anyway** theo [hướng dẫn của Apple](https://support.apple.com/102445). Máy có chính sách quản lý có thể không cho phép chạy bản này.
 
-## Usage
+## Sử dụng
 
-1. Open NahtV0Mixer and click its menu-bar icon.
-2. Play audio in an application to make it appear in the list.
-3. Enable **Per-app mixer**, then adjust an application's slider. Mute and reset buttons sit beside each application's name.
-4. Allow system audio recording access if macOS asks. Audio is processed locally; the app does not save recordings or upload audio.
+1. Bấm biểu tượng NahtV0Mixer trên menu bar và phát âm thanh trong ứng dụng cần chỉnh.
+2. Bật **Per-app mixer**, cấp quyền âm thanh hệ thống khi macOS yêu cầu, rồi chỉnh thanh âm lượng hoặc nút mute của ứng dụng.
+3. Dùng **Reset** để trả ứng dụng về âm lượng mặc định. Tắt mixer để ngừng xử lý âm thanh từng app.
 
-- Per-app levels are remembered. Each launch starts with the mixer disabled; enable it to apply your saved levels.
-- Use the **Output** submenu and system-volume controls to manage the current output device. Hardware controls are disabled when the device does not support them.
-- Reset an application's volume to return it to its normal level. Disable the mixer to stop per-app processing.
-- Settings include English/Vietnamese, system/light/dark appearance, and launch at login.
-- Reopening the app uses the existing instance and keeps a single menu-bar icon.
-- Quit the app before replacing or updating it.
+Âm lượng từng app và trạng thái bật/tắt mixer được nhớ qua lần mở sau. Lần cài đầu tiên, mixer mặc định tắt. Ứng dụng xử lý âm thanh tại máy, không lưu bản ghi hoặc tải âm thanh lên mạng.
 
-## Current limitations
+Menu **Output** chọn thiết bị phát. Settings có ngôn ngữ Việt/Anh, giao diện sáng/tối/theo hệ thống và khởi động cùng macOS.
 
-The initial version processes supported applications on the system output. It does not route each application to a separate device. Some helper processes may appear as separate applications.
+## Widget desktop
 
-The controlled audio fixture has passed on built-in MacBook Pro speakers on Apple Silicon. Bluetooth, HDMI, conferencing/duplex devices, Intel hardware, and device changes during playback still need compatibility testing. Device-failure recovery is under review; this is an experimental build.
+Mở NahtV0Mixer, bấm phải desktop → **Edit Widgets…** → chọn **NahtV0Mixer** cỡ vừa hoặc lớn.
 
-Local builds are ad-hoc signed by default and are not Apple-notarized. This does not provide a Developer ID distribution signature.
+- Bấm phần trăm để chuyển lần lượt **25% → 50% → 75% → 100%**.
+- Bấm loa để mute/unmute; **Mixer On/Off** bật/tắt xử lý từng app.
+- Giữ app chạy. Dùng **Refresh** khi thông tin hiển thị cũ; macOS quyết định thời điểm cập nhật widget.
 
-## Build
+## Giới hạn
 
-Requires **Xcode 26 or later**, Swift 6, and the Icon Composer build tools. There are no external package dependencies.
+Đây là bản thử nghiệm. Đã kiểm tra trên Apple Silicon; chưa xác nhận hoạt động trên máy Intel, Bluetooth, HDMI hoặc thiết bị hội thoại đa kênh. Điều chỉnh từng app cần đầu ra mono/stereo Float32 phù hợp. Một số tiến trình phụ có thể hiện thành mục riêng.
 
-```sh
-swift test
-./scripts/build-app.sh
-open build/NahtV0Mixer.app
-```
+## Phát triển
 
-Use `./scripts/build-app.sh --universal` to build for Apple Silicon and Intel. `./scripts/package-release.sh` creates a ZIP and SHA-256 checksum. After quitting the app, `./scripts/install-local.sh` installs the built copy into Applications.
+Xem [hướng dẫn build, ký và kiểm thử](docs/development.md). Build SwiftPM thông thường không có widget; bản phát hành có widget dùng project Xcode.
 
-See the [development guide](docs/development.md) for signing, packaging, and the scope of audio verification.
+## Ghi nhận và giấy phép
 
-## Credits and license
+Các tài liệu và dự án tham khảo được ghi trong [CREDITS.md](CREDITS.md). Code và artwork không sao chép từ những dự án đó.
 
-Thanks to the projects and documentation listed in [CREDITS.md](CREDITS.md). NahtV0Mixer is independently implemented: those references informed concepts and user experience; their source code and artwork were not copied into the app.
+Biểu tượng loa chữ N được tạo riêng cho NahtSoft bằng ImageGen và được chủ dự án chọn. [Nguồn artwork](Resources/Brand/README.md).
 
-The N-speaker icon was created for NahtSoft with ImageGen and selected by the project owner. Its sources and prompts are documented in [Resources/Brand](Resources/Brand/README.md).
-
-[MIT License](LICENSE).
+[Giấy phép MIT](LICENSE).

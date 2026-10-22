@@ -38,7 +38,7 @@ ensure_not_running() {
 ensure_not_running
 if [ -e "$bundle" ]; then
     old_identifier="$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$bundle/Contents/Info.plist" 2>/dev/null || true)"
-    if [ "$old_identifier" != 'com.levie.NahtV0Mixer' ]; then
+    if [ "$old_identifier" != 'com.levie.NahtV0Mixer' ] && [ "$old_identifier" != 'vn.levie.NahtV0Mixer' ]; then
         printf '%s\n' 'The output path contains another app or an unrecognized bundle; refusing to overwrite it.' >&2
         exit 2
     fi
@@ -52,6 +52,8 @@ staged_bundle="$staging_dir/$(basename "$bundle")"
 mkdir -p "$staged_bundle/Contents/MacOS" "$staged_bundle/Contents/Resources"
 cp "$binary_dir/NahtV0Mixer" "$staged_bundle/Contents/MacOS/NahtV0Mixer"
 cp Resources/Info.plist "$staged_bundle/Contents/Info.plist"
+# The SwiftPM-only bundle has no embedded widget or App Group entitlement.
+/usr/libexec/PlistBuddy -c 'Delete :NahtV0MixerAppGroup' "$staged_bundle/Contents/Info.plist"
 cp LICENSE "$staged_bundle/Contents/Resources/LICENSE.txt"
 cp CREDITS.md "$staged_bundle/Contents/Resources/CREDITS.md"
 swift scripts/make-icon.swift "$staged_bundle/Contents/Resources/AppIcon.icns"
@@ -60,7 +62,7 @@ if [ -d Resources/NahtV0Mixer.icon ]; then
     mkdir -p "$icon_output"
     xcrun actool Resources/NahtV0Mixer.icon --compile "$icon_output" \
         --app-icon NahtV0Mixer --target-device mac --platform macosx \
-        --minimum-deployment-target 14.4 --bundle-identifier com.levie.NahtV0Mixer \
+        --minimum-deployment-target 14.4 --bundle-identifier vn.levie.NahtV0Mixer \
         --output-partial-info-plist "$icon_output/icon.plist" \
         --output-format human-readable-text --warnings --errors --notices
     cp "$icon_output/Assets.car" "$staged_bundle/Contents/Resources/Assets.car"
@@ -87,7 +89,7 @@ if LC_ALL=C /usr/bin/grep -aEq '/Users/|/home/|/private/var/|/var/folders/' "$ex
 fi
 plutil -lint "$staged_bundle/Contents/Info.plist"
 signing_identity="${NAHTV0MIXER_SIGN_IDENTITY:--}"
-codesign --force --sign "$signing_identity" --identifier com.levie.NahtV0Mixer "$staged_bundle"
+codesign --force --sign "$signing_identity" --identifier vn.levie.NahtV0Mixer "$staged_bundle"
 codesign --verify --deep --strict --all-architectures "$staged_bundle"
 
 # Finish a successful staged build before replacing this project's old artifact.

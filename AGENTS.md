@@ -2,15 +2,15 @@
 
 ## Product and ownership
 
-- Native macOS menu-bar mixer, Swift/SwiftUI/AppKit with public Core Audio APIs; macOS 14.4 or later. Keep one process and one menu-bar item.
+- Native macOS menu-bar mixer, Swift/SwiftUI/AppKit with public Core Audio APIs; macOS 14.4 or later. Keep one audio-owning app process and one menu-bar item; the WidgetKit extension only exchanges state and commands.
 - Prefer the Control Center style using native macOS popover materials and standard controls. Keep panels compact and sized to their content; avoid bespoke backgrounds, shadows and oversized fixed layouts. Do not use private Control Center APIs.
-- This repository is private. Do not make it public or publish a release without an explicit user request. A push is not authorization to publish a release or change repository visibility.
+- This repository is public at the user's request. Do not publish a release or change repository visibility without an explicit user request. A push is not authorization to publish a release or change repository visibility.
 - Learn from external projects; implement independently. Do not transplant source, binaries, icons or other assets. Record meaningful conceptual references in `CREDITS.md` with links and what was learned. Reassess licensing before adding any dependency.
 - Preserve unrelated work. Do not create branches, worktrees, PRs or extra preview copies just to organize ordinary changes. Commit only scoped paths when authorized; use `type(scope): summary` subjects.
 
 ## Audio safety and permissions
 
-- Opening the app must not start capturing or rerouting audio. Begin per-app routing only after an explicit user action to enable the mixer or adjust an enabled mixer.
+- A fresh installation starts with the mixer disabled. Remember the user's explicit mixer on/off choice and restore it on subsequent launches and updates (user instruction, 2026-10-18). Opening a never-enabled app or merely adding a widget must not start capture; only the main app owns audio routing.
 - Use public APIs. Do not query private TCC databases/APIs, read another app's session data, or assume permission is granted because status is unknown.
 - No audio recordings, telemetry, analytics, network upload or microphone capture. Keep transient audio buffers in memory; do not log samples or private user content.
 - Audio callbacks must avoid allocations, locks, synchronous I/O and UI work. Keep one owner for each route and make partial-start failure and repeated stop safe.

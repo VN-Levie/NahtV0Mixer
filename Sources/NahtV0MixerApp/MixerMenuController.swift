@@ -176,7 +176,7 @@ final class MixerMenuController: NSObject, NSMenuDelegate {
             status(text("Waiting for approval in System Settings."), in: settings)
             action(text("Open Login Items"), in: settings) { [loginItems] in loginItems.openSystemSettings() }
         } else if loginItems.state == .unavailable {
-            status(text("Launch at login is unavailable. Move the app to Applications first."), in: settings)
+            status(text("Launch at login status is unavailable."), in: settings)
         }
         if let error = loginItems.error { status(text(error), in: settings) }
     }

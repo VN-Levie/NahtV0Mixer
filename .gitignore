@@ -8,3 +8,4 @@ xcuserdata/
 .env
 .env.*
 !.env.example
+config/WidgetSigning.local.xcconfig

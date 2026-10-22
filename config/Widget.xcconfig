@@ -1,0 +1,5 @@
+// Shared native-project defaults. The optional local file supplies the real
+// Personal Team ID and signing identity without putting account data in Git.
+#include? "WidgetSigning.local.xcconfig"
+
+NAHTV0MIXER_APP_GROUP = $(DEVELOPMENT_TEAM).vn.levie.NahtV0Mixer

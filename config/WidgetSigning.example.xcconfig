@@ -1,0 +1,5 @@
+// Copy this file to WidgetSigning.local.xcconfig and set your own Apple team.
+// WidgetSigning.local.xcconfig is intentionally ignored by Git.
+DEVELOPMENT_TEAM = YOUR_PERSONAL_TEAM_ID
+CODE_SIGN_IDENTITY = Apple Development
+NAHTV0MIXER_APP_GROUP = $(DEVELOPMENT_TEAM).vn.levie.NahtV0Mixer

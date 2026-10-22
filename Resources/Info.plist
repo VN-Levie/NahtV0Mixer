@@ -7,21 +7,28 @@
     <key>CFBundleDisplayName</key>
     <string>NahtV0Mixer</string>
     <key>CFBundleIdentifier</key>
-    <string>com.levie.NahtV0Mixer</string>
+    <string>vn.levie.NahtV0Mixer</string>
     <key>CFBundleExecutable</key>
     <string>NahtV0Mixer</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.1</string>
+    <string>0.2.0</string>
     <key>CFBundleVersion</key>
-    <string>2</string>
+    <string>3</string>
     <key>CFBundleIconFile</key>
     <string>AppIcon</string>
     <key>LSMinimumSystemVersion</key>
     <string>14.4</string>
     <key>LSUIElement</key>
     <true/>
+    <key>NahtV0MixerAppGroup</key>
+    <string>$(NAHTV0MIXER_APP_GROUP)</string>
+    <key>CFBundleURLTypes</key>
+    <array><dict>
+        <key>CFBundleURLName</key><string>vn.levie.NahtV0Mixer.widget</string>
+        <key>CFBundleURLSchemes</key><array><string>nahtv0mixer</string></array>
+    </dict></array>
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSPrincipalClass</key>

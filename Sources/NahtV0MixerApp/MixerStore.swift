@@ -150,7 +150,9 @@ final class RouteController {
         self.volumeIO = volumeIO
         preferences = MixerPreferences(defaults: defaults)
         selectedOutputID = initialOutputID
-        // Levels persist, but every launch starts in bypass until the user enables mixing.
+        // A fresh installation starts in bypass. Restore only the user's saved
+        // explicit choice on later launches, including after app updates.
+        isMixerEnabled = defaults.bool(forKey: "perAppMixerEnabled")
     }
     func start() {
         guard timer == nil else { return }
@@ -195,6 +197,7 @@ final class RouteController {
         controller.stopAll(); controlled.removeAll(); isBusy = false
     }
     func setMixerEnabled(_ enabled: Bool) {
+        defaults.set(enabled, forKey: "perAppMixerEnabled")
         isMixerEnabled = enabled
         lastError = nil; isBusy = true
         reconcile(retry: true)
@@ -203,7 +206,9 @@ final class RouteController {
     private func save(_ level: ApplicationLevel, id: String) {
         if id.hasPrefix("process:") { sessionLevels[id] = level }
         else { preferences.set(level, for: id) }
-        lastError = nil; publishApplications(); reconcile()
+        // Widget replies must wait for the route queue to accept the gain/mute
+        // change and report any setup failure, just like the mixer on/off action.
+        lastError = nil; isBusy = true; publishApplications(); reconcile()
     }
     func setVolume(_ value: Double, for id: String) {
         let old = level(id)

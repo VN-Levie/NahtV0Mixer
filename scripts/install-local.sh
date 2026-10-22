@@ -29,13 +29,13 @@ ensure_not_running() {
 }
 ensure_not_running
 identifier="$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$bundle/Contents/Info.plist")"
-if [ "$identifier" != 'com.levie.NahtV0Mixer' ]; then
+if [ "$identifier" != 'vn.levie.NahtV0Mixer' ]; then
     printf '%s\n' 'The source is not a NahtV0Mixer app bundle.' >&2
     exit 2
 fi
 if [ -e "$destination" ]; then
     old_identifier="$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$destination/Contents/Info.plist" 2>/dev/null || true)"
-    if [ "$old_identifier" != "$identifier" ]; then
+    if [ "$old_identifier" != "$identifier" ] && [ "$old_identifier" != 'com.levie.NahtV0Mixer' ]; then
         printf '%s\n' 'The destination contains another app; refusing to overwrite it.' >&2
         exit 2
     fi

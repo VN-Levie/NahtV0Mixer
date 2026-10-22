@@ -5,6 +5,17 @@ import ServiceManagement
 enum LoginItemState: Equatable {
     case off, on, needsApproval, unavailable
     var isRequested: Bool { self == .on || self == .needsApproval }
+
+    init(serviceStatus: SMAppService.Status) {
+        switch serviceStatus {
+        // The system may return notFound before this app has ever registered.
+        // It is not evidence that the app is missing from Applications.
+        case .notRegistered, .notFound: self = .off
+        case .enabled: self = .on
+        case .requiresApproval: self = .needsApproval
+        @unknown default: self = .unavailable
+        }
+    }
 }
 
 @MainActor
@@ -16,13 +27,7 @@ protocol LoginItemBackend {
 @MainActor
 private struct MainApplicationLoginItem: LoginItemBackend {
     var state: LoginItemState {
-        switch SMAppService.mainApp.status {
-        case .notRegistered: return .off
-        case .enabled: return .on
-        case .requiresApproval: return .needsApproval
-        case .notFound: return .unavailable
-        @unknown default: return .unavailable
-        }
+        LoginItemState(serviceStatus: SMAppService.mainApp.status)
     }
     func changeRegistration(to enabled: Bool) throws {
         if enabled { try SMAppService.mainApp.register() }

@@ -37,7 +37,10 @@ final class InstanceLease {
 
 @MainActor
 final class SingleInstance: NSObject {
-    static let bundleIdentifier = "com.levie.NahtV0Mixer"
+    static let bundleIdentifier = "vn.levie.NahtV0Mixer"
+    // Keep the existing lease and notification channel across the bundle-ID
+    // migration so an old running build and a new build cannot both own audio.
+    private static let leaseIdentifier = "com.levie.NahtV0Mixer"
     private let location: URL
     private let channel = "com.levie.NahtV0Mixer.user.\(getuid())"
     private let requests = Notification.Name("com.levie.NahtV0Mixer.present")
@@ -60,7 +63,7 @@ final class SingleInstance: NSObject {
 
     init(lockURL: URL? = nil) {
         location = lockURL ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent(Self.bundleIdentifier, isDirectory: true)
+            .appendingPathComponent(Self.leaseIdentifier, isDirectory: true)
             .appendingPathComponent("running.lock")
         super.init()
     }

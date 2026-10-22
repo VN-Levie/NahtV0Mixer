@@ -1,6 +1,20 @@
 import AppKit
 import Combine
 
+enum MixerPreferenceMigration {
+    static func migrateIfNeeded(destination: UserDefaults = .standard,
+                                legacy: UserDefaults? = UserDefaults(suiteName: "com.levie.NahtV0Mixer")) {
+        let marker = "migratedLegacyBundlePreferences"
+        guard !destination.bool(forKey: marker) else { return }
+        for key in ["interfaceLanguage", "interfaceTheme", "applicationLevels.v1", "perAppMixerEnabled"] {
+            if destination.object(forKey: key) == nil, let value = legacy?.object(forKey: key) {
+                destination.set(value, forKey: key)
+            }
+        }
+        destination.set(true, forKey: marker)
+    }
+}
+
 enum MixerLanguage: String, CaseIterable, Identifiable {
     case system, english, vietnamese
     var id: String { rawValue }

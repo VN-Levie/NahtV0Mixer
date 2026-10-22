@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 71;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000010000000000000001 /* MixerCore in Frameworks */ = {isa = PBXBuildFile; productRef = A10000110000000000000001 /* MixerCore */; };
+		A10000010000000000000002 /* AudioRouting in Frameworks */ = {isa = PBXBuildFile; productRef = A10000110000000000000002 /* AudioRouting */; };
+		A10000010000000000000003 /* MixerWidgetCore in Frameworks */ = {isa = PBXBuildFile; productRef = A10000110000000000000003 /* MixerWidgetCore */; };
+		A10000010000000000000009 /* MixerWidgetCore in App Frameworks */ = {isa = PBXBuildFile; productRef = A10000110000000000000003 /* MixerWidgetCore */; };
+		A10000010000000000000004 /* NahtV0MixerWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A10000050000000000000002 /* NahtV0MixerWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A10000010000000000000005 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A10000040000000000000003 /* LICENSE */; };
+		A10000010000000000000006 /* CREDITS.md in Resources */ = {isa = PBXBuildFile; fileRef = A10000040000000000000004 /* CREDITS.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A10000020000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000030000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10000070000000000000002;
+			remoteInfo = NahtV0MixerWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A10000060000000000000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A10000010000000000000004 /* NahtV0MixerWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A10000040000000000000001 /* Resources/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000002 /* Resources/WidgetInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Resources/WidgetInfo.plist; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000003 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000004 /* CREDITS.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = CREDITS.md; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000005 /* Resources/Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Resources/Widget.entitlements; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000006 /* Resources/WidgetHost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Resources/WidgetHost.entitlements; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000007 /* scripts/make-icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "scripts/make-icon.swift"; sourceTree = SOURCE_ROOT; };
+		A10000040000000000000008 /* config/Widget.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config/Widget.xcconfig; sourceTree = SOURCE_ROOT; };
+		A10000050000000000000001 /* NahtV0Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NahtV0Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000050000000000000002 /* NahtV0MixerWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NahtV0MixerWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A10000090000000000000001 /* Sources/NahtV0MixerApp */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sources/NahtV0MixerApp; sourceTree = SOURCE_ROOT; };
+		A10000090000000000000002 /* Widgets/NahtV0MixerWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Widgets/NahtV0MixerWidget; sourceTree = SOURCE_ROOT; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000060000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000001 /* MixerCore in Frameworks */,
+				A10000010000000000000002 /* AudioRouting in Frameworks */,
+				A10000010000000000000009 /* MixerWidgetCore in App Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000060000000000000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000003 /* MixerWidgetCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000080000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A10000090000000000000001 /* Sources/NahtV0MixerApp */,
+				A10000090000000000000002 /* Widgets/NahtV0MixerWidget */,
+				A10000040000000000000001 /* Resources/Info.plist */,
+				A10000040000000000000002 /* Resources/WidgetInfo.plist */,
+				A10000040000000000000003 /* LICENSE */,
+				A10000040000000000000004 /* CREDITS.md */,
+				A10000040000000000000005 /* Resources/Widget.entitlements */,
+				A10000040000000000000006 /* Resources/WidgetHost.entitlements */,
+				A10000040000000000000007 /* scripts/make-icon.swift */,
+				A10000040000000000000008 /* config/Widget.xcconfig */,
+				A10000080000000000000002 /* Products */,
+				A10000080000000000000003 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000080000000000000002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000050000000000000001 /* NahtV0Mixer.app */,
+				A10000050000000000000002 /* NahtV0MixerWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000080000000000000003 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000070000000000000001 /* NahtV0Mixer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A100000B0000000000000001 /* Build configuration list for PBXNativeTarget "NahtV0Mixer" */;
+			buildPhases = (
+				A10000060000000000000004 /* Sources */,
+				A10000060000000000000002 /* Frameworks */,
+				A10000060000000000000005 /* Resources */,
+				A10000060000000000000008 /* Generate AppIcon */,
+				A10000060000000000000001 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A100000A0000000000000001 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A10000090000000000000001 /* Sources/NahtV0MixerApp */,
+			);
+			name = NahtV0Mixer;
+			packageProductDependencies = (
+				A10000110000000000000001 /* MixerCore */,
+				A10000110000000000000002 /* AudioRouting */,
+				A10000110000000000000003 /* MixerWidgetCore */,
+			);
+			productName = NahtV0Mixer;
+			productReference = A10000050000000000000001 /* NahtV0Mixer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A10000070000000000000002 /* NahtV0MixerWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A100000B0000000000000002 /* Build configuration list for PBXNativeTarget "NahtV0MixerWidget" */;
+			buildPhases = (
+				A10000060000000000000006 /* Sources */,
+				A10000060000000000000003 /* Frameworks */,
+				A10000060000000000000007 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A10000090000000000000002 /* Widgets/NahtV0MixerWidget */,
+			);
+			name = NahtV0MixerWidget;
+			packageProductDependencies = (
+				A10000110000000000000003 /* MixerWidgetCore */,
+			);
+			productName = NahtV0MixerWidget;
+			productReference = A10000050000000000000002 /* NahtV0MixerWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000030000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 2710;
+				ORGANIZATIONNAME = Levie;
+				TargetAttributes = {
+					A10000070000000000000001 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					A10000070000000000000002 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+				};
+			};
+			buildConfigurationList = A100000B0000000000000003 /* Build configuration list for PBXProject "NahtV0Mixer" */;
+			compatibilityVersion = "Xcode 16.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				vi,
+			);
+			mainGroup = A10000080000000000000001;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A10000100000000000000001 /* XCLocalSwiftPackageReference "." */,
+			);
+			productRefGroup = A10000080000000000000002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000070000000000000001 /* NahtV0Mixer */,
+				A10000070000000000000002 /* NahtV0MixerWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000060000000000000005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000005 /* LICENSE in Resources */,
+				A10000010000000000000006 /* CREDITS.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000060000000000000007 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A10000060000000000000008 /* Generate AppIcon */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/scripts/make-icon.swift",
+			);
+			name = "Generate AppIcon";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/AppIcon.icns",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nswift \"$SRCROOT/scripts/make-icon.swift\" \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/AppIcon.icns\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000060000000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000060000000000000006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A100000A0000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A10000070000000000000002 /* NahtV0MixerWidget */;
+			targetProxy = A10000020000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A100000C0000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A100000C0000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A100000C0000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000040000000000000008 /* config/Widget.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/WidgetHost.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_NahtV0MixerAppGroup = "$(NAHTV0MIXER_APP_GROUP)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = vn.levie.NahtV0Mixer;
+				PRODUCT_NAME = NahtV0Mixer;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A100000C0000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000040000000000000008 /* config/Widget.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/WidgetHost.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_NahtV0MixerAppGroup = "$(NAHTV0MIXER_APP_GROUP)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = vn.levie.NahtV0Mixer;
+				PRODUCT_NAME = NahtV0Mixer;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A100000C0000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000040000000000000008 /* config/Widget.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Resources/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/WidgetInfo.plist;
+				INFOPLIST_KEY_NahtV0MixerAppGroup = "$(NAHTV0MIXER_APP_GROUP)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = vn.levie.NahtV0Mixer.Widget;
+				PRODUCT_NAME = NahtV0MixerWidget;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A100000C0000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000040000000000000008 /* config/Widget.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Resources/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/WidgetInfo.plist;
+				INFOPLIST_KEY_NahtV0MixerAppGroup = "$(NAHTV0MIXER_APP_GROUP)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = vn.levie.NahtV0Mixer.Widget;
+				PRODUCT_NAME = NahtV0MixerWidget;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A100000B0000000000000001 /* Build configuration list for PBXNativeTarget "NahtV0Mixer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000C0000000000000003 /* Debug */,
+				A100000C0000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A100000B0000000000000002 /* Build configuration list for PBXNativeTarget "NahtV0MixerWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000C0000000000000005 /* Debug */,
+				A100000C0000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A100000B0000000000000003 /* Build configuration list for PBXProject "NahtV0Mixer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000C0000000000000001 /* Debug */,
+				A100000C0000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A10000100000000000000001 /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A10000110000000000000001 /* MixerCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000100000000000000001 /* XCLocalSwiftPackageReference "." */;
+			productName = MixerCore;
+		};
+		A10000110000000000000002 /* AudioRouting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000100000000000000001 /* XCLocalSwiftPackageReference "." */;
+			productName = AudioRouting;
+		};
+		A10000110000000000000003 /* MixerWidgetCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000100000000000000001 /* XCLocalSwiftPackageReference "." */;
+			productName = MixerWidgetCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A10000030000000000000001 /* Project object */;
+}

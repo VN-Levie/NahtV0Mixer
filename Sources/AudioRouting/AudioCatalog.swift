@@ -89,7 +89,8 @@ public enum AudioCatalog {
         try HALValue.ids(AudioObjectID(kAudioObjectSystemObject), HALValue.address(kAudioHardwarePropertyDevices)).compactMap { id in
             guard HALValue.channelCount(id, scope: kAudioObjectPropertyScopeOutput) > 0,
                   let uid = HALValue.string(id, kAudioDevicePropertyDeviceUID),
-                  !uid.hasPrefix("com.levie.NahtV0Mixer.route.") else { return nil }
+                  !uid.hasPrefix("com.levie.NahtV0Mixer.route."),
+                  !uid.hasPrefix("vn.levie.NahtV0Mixer.route.") else { return nil }
             let name = HALValue.string(id, kAudioObjectPropertyName) ?? "Audio device"
             let rate = (try? HALValue.read(id, HALValue.address(kAudioDevicePropertyNominalSampleRate), initial: Float64(0))) ?? 0
             return AudioOutputDevice(id: id, name: name, uid: uid, sampleRate: rate)
@@ -151,7 +152,7 @@ public enum AudioCatalog {
             let bundleID = HALValue.string(process, kAudioProcessPropertyBundleID)
             let identity = AppAudioIdentity.resolve(pid: pid, processBundleID: bundleID, bundleURL: app?.bundleURL,
                                                     name: app?.localizedName, candidates: running)
-            guard identity.id != "com.levie.NahtV0Mixer", !identity.id.hasPrefix("com.apple.audio."),
+            guard identity.id != "com.levie.NahtV0Mixer", identity.id != "vn.levie.NahtV0Mixer", !identity.id.hasPrefix("com.apple.audio."),
                   !["com.apple.systemsounds", "systemsoundserverd", "com.apple.audiomxd", "com.apple.controlcenter"].contains(identity.id),
                   identity.name != "coreaudiod" else { continue }
             var entry = entries[identity.id] ?? Entry(identity: identity)

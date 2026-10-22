@@ -4,6 +4,7 @@ NahtV0Mixer được triển khai riêng bằng Swift và AppKit, với phần x
 
 | Nguồn tham khảo | Nội dung học hỏi |
 | --- | --- |
+| Apple — [Interactive widgets](https://developer.apple.com/documentation/widgetkit/adding-interactivity-to-widgets-and-live-activities), [Widget timelines](https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date), [App Group containers](https://developer.apple.com/documentation/xcode/accessing-app-group-containers) | Nút và công tắc App Intents, giới hạn cập nhật widget và chia sẻ snapshot/lệnh giữa extension và app chính qua App Group có chữ ký phù hợp. |
 | Apple — [Core Audio Taps](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps), [NSStatusItem.menu](https://developer.apple.com/documentation/appkit/nsstatusitem/menu), [NSMenuItem.view](https://developer.apple.com/documentation/appkit/nsmenuitem/view) và [menuNeedsUpdate](https://developer.apple.com/documentation/appkit/nsmenudelegate/menuneedsupdate(_:)) | API công khai để xử lý âm thanh của tiến trình, quyền truy cập âm thanh hệ thống, menu gốc của macOS chứa control AppKit và cập nhật menu trước khi mở. |
 | [MacMixer](https://github.com/burghr/MacMixer) | Cấu trúc process tap, aggregate device riêng và thứ tự dừng, giải phóng đường âm thanh. |
 | [AudioCap](https://github.com/insidegui/AudioCap) | Vòng đời tap, định dạng âm thanh và tình huống thiếu quyền. NahtV0Mixer không sử dụng private TCC API. |

@@ -1,8 +1,31 @@
 import AppKit
 import AudioRouting
+import MixerWidgetCore
+import ServiceManagement
 
 @MainActor enum MixerDiagnostics {
     static func runIfRequested() -> Bool {
+        if CommandLine.arguments.contains("--widget-status") {
+            do {
+                let storage = try WidgetSharedStore.configured()
+                let snapshot = storage.readSnapshot() ?? .unavailable
+                let report: [String: Any] = [
+                    "running": snapshot.isRunning, "fresh": snapshot.isFresh(),
+                    "mixerEnabled": snapshot.mixerEnabled,
+                    "launchAtLoginStatus": SMAppService.mainApp.status.rawValue,
+                    "systemVolume": snapshot.systemVolume as Any? ?? NSNull(),
+                    "systemMuted": snapshot.systemMuted as Any? ?? NSNull(),
+                    "playingApps": snapshot.apps.filter(\.isPlaying).map(\.name),
+                    "captureStarted": false
+                ]
+                let data = try JSONSerialization.data(withJSONObject: report, options: [.sortedKeys])
+                print(String(decoding: data, as: UTF8.self))
+            } catch {
+                fputs("Widget shared state is unavailable: \(error.localizedDescription)\n", stderr)
+                exit(1)
+            }
+            return true
+        }
         if CommandLine.arguments.contains("--audio-check") {
             _ = NSApplication.shared
             exit(AudioCheck.run())

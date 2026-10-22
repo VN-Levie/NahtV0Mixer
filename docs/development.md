@@ -28,18 +28,30 @@ Giữ các lớp bằng chứng tách biệt:
 
 Bắt đầu bằng loa tích hợp ở chế độ stereo. Chỉ báo tương thích Bluetooth, HDMI, thiết bị đa kênh, máy Intel hoặc độ trễ khi đã kiểm tra trực tiếp. Unit test không chứng minh quyền âm thanh đã được cấp hay audio đang phát ra loa.
 
-Mở app chỉ đọc danh sách thiết bị/ứng dụng. Bật mixer là hành động riêng; thay đổi per-app đầu tiên có thể khiến macOS yêu cầu quyền ghi âm thanh hệ thống. Trạng thái quyền chưa xác định phải được xử lý như chưa biết, không tự suy ra đã được cấp. Nếu bị từ chối, người dùng kiểm tra **System Settings → Privacy & Security → Screen & System Audio Recording** (tên mục có thể khác theo phiên bản macOS).
+Lần cài mới chỉ đọc danh sách thiết bị/ứng dụng. Những lần mở sau khôi phục lựa chọn bật/tắt đã lưu; thay đổi per-app đầu tiên có thể khiến macOS yêu cầu quyền ghi âm thanh hệ thống. Trạng thái quyền chưa xác định phải được xử lý như chưa biết, không tự suy ra đã được cấp. Nếu bị từ chối, người dùng kiểm tra **System Settings → Privacy & Security → Screen & System Audio Recording** (tên mục có thể khác theo phiên bản macOS).
 
 ## Đóng gói và cài cục bộ
 
+### WidgetKit
+
+`NahtV0Mixer.xcodeproj` có hai target: app `vn.levie.NahtV0Mixer` và extension `vn.levie.NahtV0Mixer.Widget`. Project dùng các thư viện của package hiện tại; Xcode thực hiện bước trích xuất App Intents metadata và nhúng extension vào `Contents/PlugIns`.
+
+Chép `config/WidgetSigning.example.xcconfig` thành `WidgetSigning.local.xcconfig`, điền Team thật và dùng chứng chỉ Apple Development. File local bị Git bỏ qua. `./scripts/build-widget-app.sh --native` tạo bản có widget ở `build/widget/NahtV0Mixer.app`; `--unsigned` chỉ kiểm tra biên dịch/cấu trúc ở `build/widget-unsigned`, không chứng minh quyền App Group hoặc widget chạy được. Không ghi Team cá nhân hay chứng chỉ vào source.
+
+App Group macOS có dạng `TEAM_ID.vn.levie.NahtV0Mixer`. App chính ghi snapshot và xử lý từng lệnh trong nhóm này; extension không import Core Audio và không tạo tap. Lệnh chứa UUID, session và hạn dùng 10 giây; lệnh cũ sau khi app khởi động lại hoặc app đích ngừng phát bị từ chối. Intent tính thao tác toggle/preset từ snapshot mới nhất rồi gửi giá trị cụ thể. Mỗi lệnh có phản hồi và không thực thi lại khi đã có receipt. Heartbeat làm mới dữ liệu trên đĩa mỗi 30 giây, nhưng không yêu cầu WidgetKit reload chỉ vì heartbeat. Reload do thay đổi trạng thái được giới hạn; thao tác do người dùng yêu cầu cập nhật sau khi có kết quả.
+
+Khi đổi bundle ID, app chuyển các thiết lập đã biết từ domain cũ: ngôn ngữ, giao diện, mức âm lượng từng app và lựa chọn bật/tắt mixer. Lease và kênh mở lại của bản cũ được giữ để ngăn hai phiên Mixer cùng sở hữu audio. Quyền macOS và đăng ký đăng nhập thuộc bundle ID, không được sao chép hay sửa ngầm.
+
 ```sh
-./scripts/package-release.sh
-# Hoặc bắt buộc đúng kiểu gói:
-./scripts/package-release.sh --universal
+# Bản phát hành có widget, ký bằng identity đã cấu hình:
+./scripts/build-widget-app.sh --universal
+./scripts/package-release.sh --widget --universal
 
 # Chỉ khi muốn cài và đã thoát ứng dụng:
-./scripts/install-local.sh
+NAHTV0MIXER_APP_OUTPUT="$PWD/build/widget/NahtV0Mixer.app" ./scripts/install-local.sh
 ```
+
+`--widget` bắt buộc extension đi kèm; packager kiểm tra phiên bản, kiến trúc, App Group và chữ ký của cả app/extension. Bản thử nghiệm 0.2.0 dùng Apple Development, không có provisioning profile và chưa notarized. Máy khác có thể cần xác nhận Gatekeeper; chưa kiểm tra trên Mac khác. Phát hành Developer ID/notarized là quy trình riêng, cần chứng chỉ tương ứng. Không ký ad-hoc lại extension có App Group của một Team.
 
 Gói ZIP và manifest SHA-256 nằm trong `dist/`. Script đối chiếu version/build với `Resources/Info.plist`, xác minh bundle ID, executable, kiến trúc, minimum macOS, đường dẫn cục bộ và chữ ký. Sau đóng gói, nó giải nén vào thư mục tạm và kiểm tra lại app. Bản universal chứa cả arm64 và x86_64; điều đó không chứng minh đã chạy thử trên Intel.
 
@@ -47,7 +59,7 @@ Cài đặt dùng `/Applications/NahtV0Mixer.app` và từ chối khi bản ngu�
 
 ## GitHub và tài liệu
 
-Repository giữ **private** cho đến khi có yêu cầu khác. Push source không đồng nghĩa với phát hành. Khi được yêu cầu release, cập nhật version/build cùng nhau, kiểm thử và tạo gói đã kiểm tra trước khi tải lên; kiểm tra lại bản tải về cùng checksum sau khi phát hành.
+Repository đã được công khai theo yêu cầu của chủ dự án. Push source không đồng nghĩa với phát hành. Khi được yêu cầu release, cập nhật version/build cùng nhau, kiểm thử và tạo gói đã kiểm tra trước khi tải lên; kiểm tra lại bản tải về cùng checksum sau khi phát hành.
 
 Các bản ghi kiểm thử phải nêu rõ môi trường và phạm vi, không lưu âm thanh hay nội dung riêng của người dùng. README/release notes chỉ chứa thông tin cần cho sử dụng; ghi nguồn học hỏi trong `CREDITS.md` cùng commit liên quan. Không chép code từ các nguồn tham khảo.
 
@@ -58,3 +70,10 @@ Các bản ghi kiểm thử phải nêu rõ môi trường và phạm vi, không
 - Kết quả fixture: input/unity peak `0.0198103`; gain 25% output peak `0.00495864`; mute peak `0`; `91136` frame đã xử lý. Đầu ra mặc định không đổi. Đây là phép đo buffer trong callback thực của HAL, không phải bản thu loopback vật lý hoặc phép đo độ trễ.
 - Loa máy báo duy nhất một stream tap bắt đầu ở kênh HAL 7 dù callback chỉ có một buffer stereo. Chỉ trường hợp đã xác minh không có hardware input, một tap/stream và format khớp hoàn toàn mới được chuẩn hóa về kênh callback 1. Duplex vẫn kiểm tra nghiêm ngặt.
 - UI mở ở trạng thái mixer tắt, đọc đúng thiết bị/âm lượng hiện tại. Mute/volume từng ứng dụng, Bluetooth, HDMI, conferencing và Intel hardware vẫn cần các ca tương thích riêng; không suy ra hỗ trợ mọi thiết bị từ fixture loa máy.
+
+## Kiểm tra bản 0.2.0 (2026-10-22)
+
+- 87 test SwiftPM đạt, gồm migration thiết lập, chờ kết quả route trước phản hồi widget và thao tác toggle/preset trên snapshot mới.
+- Build Universal qua shared scheme `NahtV0MixerWidgetApp`; scheme có tên riêng để tránh chọn nhầm executable SwiftPM. Gói `--widget --universal` kiểm tra cả app lẫn extension, metadata 0.2.0/build 3, chữ ký, App Group và đường dẫn build; giải nén ZIP rồi kiểm tra lại.
+- Fixture âm thanh thực trên loa MacBook Pro: unity/input peak `0.01983456`, gain 25% peak `0.00495864`, mute peak `0`, 86.016 frame được xử lý; đầu ra mặc định không đổi. Chỉ dùng tiến trình afplay và tín hiệu được tạo cho phép thử.
+- Qua hàng đợi lệnh thật của widget đến app đang chạy, nguồn afplay riêng nhận được mute/unmute hai vòng và volume 25%/50%/100%, phản hồi sau khi hết busy và không có lỗi route. Đây là kiểm tra IPC và xử lý lệnh thực; chưa chứng minh thao tác bấm trên giao diện WidgetKit vì công cụ UI không truy cập được ứng dụng menu bar/widget trong lượt kiểm tra này.
